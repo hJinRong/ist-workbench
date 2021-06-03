@@ -1,0 +1,22 @@
+.list-wrapper {
+  box-sizing: border-box;
+  width: 260px;
+  height: 100vh;
+  overflow: scroll;
+  float: left;
+}
+
+.MuiCollapse-container {
+  padding-left: 25px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.panel-wrapper {
+  box-sizing: border-box;
+  height: 100vh;
+  overflow: scroll;
+}
