@@ -110,11 +110,20 @@ export const StylePanel = () => {
               Object.defineProperty(copy[styleIdx], "fontStyles", {
                 value: {},
                 writable: true,
+                configurable: true,
+                enumerable: true,
               });
             }
+            const val1 = ["bold", "italic"].includes(t1)
+              ? Boolean(e.target.value)
+              : ["size", "spacing"].includes(t1)
+              ? Number(e.target.value)
+              : e.target.value;
             Object.defineProperty(copy[styleIdx].fontStyles, t1, {
-              value: e.target.value,
+              value: val1,
               writable: true,
+              configurable: true,
+              enumerable: true,
             });
             setStyles(copy);
             saveAll();
@@ -126,11 +135,18 @@ export const StylePanel = () => {
               Object.defineProperty(copy[styleIdx], "paragraphStyles", {
                 value: {},
                 writable: true,
+                configurable: true,
+                enumerable: true,
               });
             }
+            const val2 = ["alignment"].includes(t2)
+              ? e.target.value
+              : Number(e.target.value);
             Object.defineProperty(copy[styleIdx].paragraphStyles, t2, {
-              value: e.target.value,
+              value: val2,
               writable: true,
+              configurable: true,
+              enumerable: true,
             });
             setStyles(copy);
             saveAll();
