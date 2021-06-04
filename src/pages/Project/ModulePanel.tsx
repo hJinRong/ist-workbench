@@ -56,7 +56,7 @@ export const ModulePanel = () => {
     } else {
       setContents([...contents, filename]);
       dispatch({
-        type: "content",
+        type: "new_content",
         modulePath: modulePath,
         newContent: {
           path: filename,

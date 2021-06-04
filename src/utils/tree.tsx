@@ -23,11 +23,11 @@ export interface Style {
 export interface ModuleContents {
   path: string;
   id: string;
-  files: File[];
+  files: ContentFile[];
   styles: string[];
 }
 
-export interface File {
+export interface ContentFile {
   path: string;
   content: string;
 }

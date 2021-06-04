@@ -26,6 +26,12 @@ type DispatchNewStyle = DispatchParam & {
   newStyle: ModuleStyles;
 };
 
+type DispatchChangeStylePath = DispatchParam & {
+  type: "style_path";
+  oldPath: string;
+  newPath: string;
+};
+
 type DispatchNewEmptyStyle = DispatchParam & {
   type: "new_style";
   stylePath: string;
@@ -36,11 +42,17 @@ type DispatchDeleteStyle = DispatchParam & {
   type: "del_style";
   stylePath: string;
   styleIndex: number;
-}
+};
+
+type DispatchContent = DispatchParam & {
+  type: "content";
+  oldPath: string;
+  newContent: ModuleContents;
+};
 
 type DispatchNewContent = DispatchParam & {
-  type: "content";
-  newContent: ModuleContents;
+  type: "new_content";
+  newContent: ModuleContents
 };
 
 type DispatchContents = DispatchParam & {
@@ -52,8 +64,10 @@ type DispatchUnionType =
   | DispatchNewModule
   | DispatchRemoveModule
   | DispatchNewStyle
+  | DispatchChangeStylePath
   | DispatchDeleteStyle
   | DispatchNewEmptyStyle
+  | DispatchContent
   | DispatchNewContent
   | DispatchContents;
 
@@ -86,6 +100,7 @@ export const modulesReducer: ReducerType = (state, action) => {
       }
       return modules;
     case "new_style":
+      debugger;
       if (moduleIdx === -1)
         throw new Error("STYLE: An unexpected situation occurs.");
       const styleIdx2 = modules[moduleIdx].styles.findIndex(
@@ -93,6 +108,8 @@ export const modulesReducer: ReducerType = (state, action) => {
       );
       modules[moduleIdx].styles[styleIdx2].styles.push({
         id: action.newStyleId,
+        fontStyles: {},
+        paragraphStyles: {},
       });
       return modules;
     case "del_style":
@@ -102,18 +119,30 @@ export const modulesReducer: ReducerType = (state, action) => {
         (el) => el.path === action.stylePath
       );
       modules[moduleIdx].styles[styleIdx3].styles.splice(action.styleIndex, 1);
-      return modules
+      return modules;
+    case "style_path":
+      debugger;
+      if (moduleIdx === -1)
+        throw new Error("STYLE: An unexpected situation occurs.");
+      const styleIdx4 = modules[moduleIdx].styles.findIndex(
+        (el) => el.path === action.oldPath
+      );
+      modules[moduleIdx].styles[styleIdx4].path = action.newPath;
+      return modules;
     case "content":
       if (moduleIdx === -1)
         throw new Error("STYLE: An unexpected situation occurs.");
       const contentIdx = modules[moduleIdx].contents.findIndex(
-        (el) => el.path === action.newContent.path
+        (el) => el.path === action.oldPath
       );
-      if (contentIdx === -1) {
-        modules[moduleIdx].contents.push(action.newContent);
-      } else {
+      if (contentIdx !== -1) {
         modules[moduleIdx].contents[contentIdx] = action.newContent;
       }
+      return modules;
+    case "new_content":
+      if (moduleIdx === -1)
+        throw new Error("STYLE: An unexpected situation occurs.");
+      modules[moduleIdx].contents.push(action.newContent);
       return modules;
     case "contents":
       if (moduleIdx === -1)

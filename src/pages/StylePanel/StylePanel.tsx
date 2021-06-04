@@ -3,7 +3,6 @@ import {
   createStyles,
   Divider,
   FormControl,
-  IconButton,
   InputBase,
   InputLabel,
   List,
@@ -15,8 +14,8 @@ import {
   TextField,
   Theme,
 } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
 import DeleteIcon from "@material-ui/icons/Delete";
+import SaveIcon from "@material-ui/icons/Save";
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { ModulesContext } from "../../utils/context";
@@ -51,6 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
       bottom: 50,
     },
     input: {
+      minWidth: 120,
       marginLeft: theme.spacing(1),
       flex: 1,
     },
@@ -67,6 +67,11 @@ export const StylePanel = () => {
   const [styles, setStyles] = useState<Style[]>([]);
   const [newStyleId, setNewStyleId] = useState("");
   const classes = useStyles();
+  const [styPath, setStyPath] = useState("");
+
+  useEffect(() => {
+    setStyPath(stylePath);
+  }, []);
 
   useEffect(() => {
     const module = modules.find((el) => el.path === modulePath);
@@ -84,7 +89,7 @@ export const StylePanel = () => {
     const copy = Array.from(styles);
     switch (type) {
       case "path":
-        // todo
+        setStyPath(e.target.value as string);
         break;
       case "id":
         copy[styleIdx].id = e.target.value as string;
@@ -163,9 +168,19 @@ export const StylePanel = () => {
       <TextField
         label="Style file path"
         variant="outlined"
-        value={stylePath}
+        value={styPath}
         onChange={(e) => handleChange(e, "path", -1)}
         className={classes.formControl}
+      />
+      <SaveIcon
+        onClick={() =>
+          dispatch({
+            type: "style_path",
+            modulePath: modulePath,
+            oldPath: stylePath,
+            newPath: styPath,
+          })
+        }
       />
       <Divider className={classes.divider} />
       {styles.map((sty, styIdx) => {
@@ -192,14 +207,13 @@ export const StylePanel = () => {
                 component="nav"
                 aria-labelledby="nested-list-subheader"
                 subheader={
-                  <ListSubheader component="div" id="nested-list-subheader">
+                  <ListSubheader component="div">
                     Font Style
                   </ListSubheader>
                 }
               >
                 <TextField
                   required
-                  id="outlined-required"
                   label="Font family"
                   defaultValue="Arial"
                   variant="outlined"
@@ -208,12 +222,11 @@ export const StylePanel = () => {
                   className={classes.formControl}
                 />
                 <FormControl variant="filled" className={classes.formControl}>
-                  <InputLabel id="demo-simple-select-filled-label">
+                  <InputLabel>
                     Bold
                   </InputLabel>
                   <Select
                     labelId="demo-simple-select-filled-label"
-                    id="demo-simple-select-filled"
                     value={sty.fontStyles?.bold}
                     onChange={(e) => handleChange(e, "f-bold", styIdx)}
                   >
@@ -225,13 +238,12 @@ export const StylePanel = () => {
                   </Select>
                 </FormControl>
                 <FormControl variant="filled" className={classes.formControl}>
-                  <InputLabel id="demo-simple-select-filled-label">
+                  <InputLabel>
                     Italic
                   </InputLabel>
                   <Select
                     labelId="demo-simple-select-filled-label"
-                    id="demo-simple-select-filled"
-                    value={sty.fontStyles?.italic}
+                    value={sty.fontStyles?.italic ?? false}
                     onChange={(e) => handleChange(e, "f-italic", styIdx)}
                   >
                     <MenuItem value="">
@@ -265,7 +277,6 @@ export const StylePanel = () => {
                 />
                 <TextField
                   label="Color"
-                  type="number"
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -279,18 +290,17 @@ export const StylePanel = () => {
                 component="nav"
                 aria-labelledby="nested-list-subheader"
                 subheader={
-                  <ListSubheader component="div" id="nested-list-subheader">
+                  <ListSubheader component="div">
                     Paragraph Style
                   </ListSubheader>
                 }
               >
                 <FormControl variant="filled" className={classes.formControl}>
-                  <InputLabel id="demo-simple-select-filled-label">
+                  <InputLabel>
                     Alignment
                   </InputLabel>
                   <Select
                     labelId="demo-simple-select-filled-label"
-                    id="demo-simple-select-filled"
                     value={sty.paragraphStyles?.alignment}
                     onChange={(e) => handleChange(e, "p-alignment", styIdx)}
                   >
@@ -298,9 +308,11 @@ export const StylePanel = () => {
                       <em>None</em>
                     </MenuItem>
                     {[
-                      "top",
+                      "justify",
                       "center",
-                      "bottom",
+                      "left",
+                      "right",
+                      "distribute",
                       "thai",
                       "hi",
                       "low",
@@ -369,14 +381,16 @@ export const StylePanel = () => {
           onChange={(e) => setNewStyleId(e.target.value)}
           value={newStyleId}
         />
-        <IconButton
-          type="submit"
-          className={classes.iconButton}
-          aria-label="add"
+        <Button
+          variant="contained"
+          color="primary"
+          size="small"
+          className={classes.button}
+          startIcon={<SaveIcon />}
           onClick={newEmptyStyle}
         >
-          <AddIcon />
-        </IconButton>
+          New
+        </Button>
       </Paper>
     </>
   );
