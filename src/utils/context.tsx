@@ -12,8 +12,8 @@ type DispatchParam = {
 };
 
 type DispatchNewModule = DispatchParam & {
-  type: "module";
-  newModule: Module;
+  type: "new_module";
+  newModulePath: string;
 };
 
 type DispatchRemoveModule = DispatchParam & {
@@ -79,12 +79,13 @@ export const modulesReducer: ReducerType = (state, action) => {
   const modules = Array.from(state);
   const moduleIdx = modules.findIndex((el) => el.path === action.modulePath);
   switch (action.type) {
-    case "module":
-      if (moduleIdx === -1) {
-        modules.push(action.newModule);
-      } else {
-        modules[moduleIdx] = action.newModule;
-      }
+    case "new_module":
+      modules.push({
+        path: action.newModulePath,
+        id: action.newModulePath,
+        styles: [],
+        contents: [],
+      });
       return modules;
     case "rm_module":
       modules.splice(action.moduleIndex, 1);

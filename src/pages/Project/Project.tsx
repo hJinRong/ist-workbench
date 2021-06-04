@@ -16,14 +16,9 @@ export const Project = () => {
 
   const newModule = () => {
     dispatch({
-      type: "module",
+      type: "new_module",
       modulePath: tmpModulePath,
-      newModule: {
-        path: tmpModulePath,
-        id: tmpModulePath,
-        styles: [],
-        contents: [],
-      },
+      newModulePath: tmpModulePath
     });
     setTmpModulePath("");
   };
@@ -42,7 +37,7 @@ export const Project = () => {
         })}
         <ListItem button>
           <TextField
-            label="New module"
+            label="Module name"
             variant="outlined"
             value={tmpModulePath}
             onChange={(e) => {
