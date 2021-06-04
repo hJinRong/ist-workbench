@@ -9,6 +9,9 @@ import {
   Paper,
   TextField,
   Theme,
+  AppBar,
+  Toolbar,
+  Typography,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SaveIcon from "@material-ui/icons/Save";
@@ -67,7 +70,7 @@ export const ContentPanel = () => {
         setStyles(cont.styles);
       }
     }
-  }, [modules]);
+  }, [modules, modulePath, contentPath]);
 
   const [newStyleId, setNewStyleId] = useState("");
 
@@ -89,6 +92,12 @@ export const ContentPanel = () => {
 
   return (
     <>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6">{`${modulePath}/${contentPath}`}</Typography>
+        </Toolbar>
+      </AppBar>
+
       <TextField
         label="Content file path"
         variant="outlined"
