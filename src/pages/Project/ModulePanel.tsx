@@ -1,25 +1,42 @@
 import {
   AppBar,
+  Button,
+  createStyles,
   Divider,
   IconButton,
   List,
   ListItem,
   ListItemText,
   ListSubheader,
+  makeStyles,
+  Theme,
   Toolbar,
   Typography,
 } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
+import ArchiveIcon from "@material-ui/icons/Archive";
 import StyleIcon from "@material-ui/icons/Style";
 import TextFieldsIcon from "@material-ui/icons/TextFields";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { ModulesContext } from "../../utils/context";
+import { generateZip } from "../../utils/generate-zip";
 import "./ModulePanel.css";
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    genButton: {
+      position: "fixed",
+      bottom: 50,
+      right: 50,
+    },
+  })
+);
+
 export const ModulePanel = () => {
+  const classes = useStyles();
   const textfieldRef = useRef(null);
   const [disable, setDisable] = useState(true);
   const [input, setInput] = useState<string>("");
@@ -144,7 +161,10 @@ export const ModulePanel = () => {
               >
                 {contents.map((val, idx) => {
                   return (
-                    <Link to={`/project/${modulePath}/content/${val}`} key={idx} >
+                    <Link
+                      to={`/project/${modulePath}/content/${val}`}
+                      key={idx}
+                    >
                       <ListItem button>
                         <ListItemText primary={val} />
                       </ListItem>
@@ -156,6 +176,18 @@ export const ModulePanel = () => {
           </Grid>
         </div>
       </Grid>
+      <Button
+        variant="contained"
+        color="primary"
+        size="small"
+        className={classes.genButton}
+        startIcon={<ArchiveIcon />}
+        onClick={() => {
+          generateZip(modules);
+        }}
+      >
+        Archive
+      </Button>
     </>
   );
 };
