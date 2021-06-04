@@ -97,6 +97,8 @@ export const modulesReducer: ReducerType = (state, action) => {
       );
       if (styleIdx !== -1) {
         modules[moduleIdx].styles[styleIdx] = action.newStyle;
+      } else {
+        modules[moduleIdx].styles.push(action.newStyle)
       }
       return modules;
     case "new_style":

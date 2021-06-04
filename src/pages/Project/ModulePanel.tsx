@@ -52,7 +52,7 @@ export const ModulePanel = () => {
       setStyles(module.styles.map((m) => m.path));
       setContents(module.contents.map((c) => c.path));
     }
-  }, []);
+  }, [modules, modulePath]);
 
   useEffect(() => {
     setDisable(input.length <= 0);

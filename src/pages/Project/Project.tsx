@@ -1,5 +1,6 @@
-import { List } from "@material-ui/core";
-import React, { useContext } from "react";
+import { Button, List, ListItem, TextField } from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
+import React, { useContext, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import { ModulesContext } from "../../utils/context";
 import { ContentPanel } from "../ContentPanel/ContentPanel";
@@ -9,7 +10,24 @@ import { ModulePanel } from "./ModulePanel";
 import "./Project.css";
 
 export const Project = () => {
-  const { modules } = useContext(ModulesContext);
+  const { modules, dispatch } = useContext(ModulesContext);
+
+  const [tmpModulePath, setTmpModulePath] = useState("");
+
+  const newModule = () => {
+    dispatch({
+      type: "module",
+      modulePath: tmpModulePath,
+      newModule: {
+        path: tmpModulePath,
+        id: tmpModulePath,
+        styles: [],
+        contents: [],
+      },
+    });
+    setTmpModulePath("");
+  };
+
   return (
     <>
       <List className={"list-wrapper"}>
@@ -22,6 +40,24 @@ export const Project = () => {
             />
           );
         })}
+        <ListItem button>
+          <TextField
+            label="New module"
+            variant="outlined"
+            value={tmpModulePath}
+            onChange={(e) => {
+              setTmpModulePath(e.target.value);
+            }}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<AddIcon />}
+            onClick={newModule}
+          >
+            New
+          </Button>
+        </ListItem>
       </List>
       <div className="panel-wrapper">
         <Switch>
