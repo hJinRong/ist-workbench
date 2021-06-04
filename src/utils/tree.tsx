@@ -16,8 +16,8 @@ export interface ModuleStyles {
 
 export interface Style {
   id: string;
-  fontStyles?: Font;
-  paragraphStyles?: Paragraph;
+  font?: Font;
+  paragraph?: Paragraph;
 }
 
 export interface ModuleContents {
@@ -42,18 +42,18 @@ export const importsObj: Modules = [
         styles: [
           {
             id: "style1-1",
-            fontStyles: {
+            font: {
               fontFamily: "Arial",
               bold: true,
             },
-            paragraphStyles: {
+            paragraph: {
               alignment: "justify",
               textIntent: 21,
             },
           },
           {
             id: "style1-2",
-            fontStyles: {
+            font: {
               italic: true,
               size: 13,
             },

@@ -110,8 +110,8 @@ export const modulesReducer: ReducerType = (state, action) => {
       );
       modules[moduleIdx].styles[styleIdx2].styles.push({
         id: action.newStyleId,
-        fontStyles: {},
-        paragraphStyles: {},
+        font: {},
+        paragraph: {},
       });
       return modules;
     case "del_style":

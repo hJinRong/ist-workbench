@@ -101,14 +101,14 @@ export const StylePanel = () => {
         switch (names[0]) {
           case "f":
             const t1 = names[1] as FontKey;
-            const fs = copy[styleIdx].fontStyles;
+            const fs = copy[styleIdx].font;
             if (typeof fs === "undefined") {
               Object.defineProperty(copy[styleIdx], "fontStyles", {
                 value: {},
                 writable: true,
               });
             }
-            Object.defineProperty(copy[styleIdx].fontStyles, t1, {
+            Object.defineProperty(copy[styleIdx].font, t1, {
               value: e.target.value,
               writable: true,
             });
@@ -117,14 +117,14 @@ export const StylePanel = () => {
             break;
           case "p":
             const t2 = names[1] as ParagraphKey;
-            const ps = copy[styleIdx].paragraphStyles;
+            const ps = copy[styleIdx].paragraph;
             if (typeof ps === "undefined") {
               Object.defineProperty(copy[styleIdx], "paragraphStyles", {
                 value: {},
                 writable: true,
               });
             }
-            Object.defineProperty(copy[styleIdx].paragraphStyles, t2, {
+            Object.defineProperty(copy[styleIdx].paragraph, t2, {
               value: e.target.value,
               writable: true,
             });
@@ -217,7 +217,7 @@ export const StylePanel = () => {
                   label="Font family"
                   defaultValue="Arial"
                   variant="outlined"
-                  value={sty.fontStyles?.fontFamily}
+                  value={sty.font?.fontFamily}
                   onChange={(e) => handleChange(e, "f-fontFamily", styIdx)}
                   className={classes.formControl}
                 />
@@ -227,7 +227,7 @@ export const StylePanel = () => {
                   </InputLabel>
                   <Select
                     labelId="demo-simple-select-filled-label"
-                    value={sty.fontStyles?.bold}
+                    value={sty.font?.bold}
                     onChange={(e) => handleChange(e, "f-bold", styIdx)}
                   >
                     <MenuItem value="">
@@ -243,7 +243,7 @@ export const StylePanel = () => {
                   </InputLabel>
                   <Select
                     labelId="demo-simple-select-filled-label"
-                    value={sty.fontStyles?.italic ?? false}
+                    value={sty.font?.italic ?? false}
                     onChange={(e) => handleChange(e, "f-italic", styIdx)}
                   >
                     <MenuItem value="">
@@ -260,7 +260,7 @@ export const StylePanel = () => {
                     shrink: true,
                   }}
                   variant="outlined"
-                  value={sty.fontStyles?.size}
+                  value={sty.font?.size}
                   onChange={(e) => handleChange(e, "f-size", styIdx)}
                   className={classes.formControl}
                 />
@@ -271,7 +271,7 @@ export const StylePanel = () => {
                     shrink: true,
                   }}
                   variant="outlined"
-                  value={sty.fontStyles?.spacing}
+                  value={sty.font?.spacing}
                   onChange={(e) => handleChange(e, "f-spacing", styIdx)}
                   className={classes.formControl}
                 />
@@ -281,7 +281,7 @@ export const StylePanel = () => {
                     shrink: true,
                   }}
                   variant="outlined"
-                  value={sty.fontStyles?.textColor}
+                  value={sty.font?.textColor}
                   onChange={(e) => handleChange(e, "f-textColor", styIdx)}
                   className={classes.formControl}
                 />
@@ -301,7 +301,7 @@ export const StylePanel = () => {
                   </InputLabel>
                   <Select
                     labelId="demo-simple-select-filled-label"
-                    value={sty.paragraphStyles?.alignment}
+                    value={sty.paragraph?.alignment}
                     onChange={(e) => handleChange(e, "p-alignment", styIdx)}
                   >
                     <MenuItem value="">
@@ -329,7 +329,7 @@ export const StylePanel = () => {
                     shrink: true,
                   }}
                   variant="outlined"
-                  value={sty.paragraphStyles?.textIntent}
+                  value={sty.paragraph?.textIntent}
                   onChange={(e) => handleChange(e, "p-textIntent", styIdx)}
                   className={classes.formControl}
                 />
@@ -340,7 +340,7 @@ export const StylePanel = () => {
                     shrink: true,
                   }}
                   variant="outlined"
-                  value={sty.paragraphStyles?.lineSpacing}
+                  value={sty.paragraph?.lineSpacing}
                   onChange={(e) => handleChange(e, "p-lineSpacing", styIdx)}
                   className={classes.formControl}
                 />
@@ -351,7 +351,7 @@ export const StylePanel = () => {
                     shrink: true,
                   }}
                   variant="outlined"
-                  value={sty.paragraphStyles?.lineUnitBefore}
+                  value={sty.paragraph?.lineUnitBefore}
                   onChange={(e) => handleChange(e, "p-lineUnitBefore", styIdx)}
                   className={classes.formControl}
                 />
@@ -362,7 +362,7 @@ export const StylePanel = () => {
                     shrink: true,
                   }}
                   variant="outlined"
-                  value={sty.paragraphStyles?.lineUnitAfter}
+                  value={sty.paragraph?.lineUnitAfter}
                   onChange={(e) => handleChange(e, "p-lineUnitAfter", styIdx)}
                   className={classes.formControl}
                 />
