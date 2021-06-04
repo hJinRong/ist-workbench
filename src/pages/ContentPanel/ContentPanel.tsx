@@ -13,10 +13,10 @@ import {
 import DeleteIcon from "@material-ui/icons/Delete";
 import SaveIcon from "@material-ui/icons/Save";
 import AddIcon from "@material-ui/icons/Add";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { ModulesContext } from "../../utils/context";
-import { ContentFile, ModuleContents } from "../../utils/tree";
+import { ContentFile } from "../../utils/tree";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

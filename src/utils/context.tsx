@@ -102,7 +102,6 @@ export const modulesReducer: ReducerType = (state, action) => {
       }
       return modules;
     case "new_style":
-      debugger;
       if (moduleIdx === -1)
         throw new Error("STYLE: An unexpected situation occurs.");
       const styleIdx2 = modules[moduleIdx].styles.findIndex(
@@ -123,7 +122,6 @@ export const modulesReducer: ReducerType = (state, action) => {
       modules[moduleIdx].styles[styleIdx3].styles.splice(action.styleIndex, 1);
       return modules;
     case "style_path":
-      debugger;
       if (moduleIdx === -1)
         throw new Error("STYLE: An unexpected situation occurs.");
       const styleIdx4 = modules[moduleIdx].styles.findIndex(

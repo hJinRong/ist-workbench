@@ -1,6 +1,6 @@
 import { Button, List, ListItem, TextField } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import { ModulesContext } from "../../utils/context";
 import { ContentPanel } from "../ContentPanel/ContentPanel";
